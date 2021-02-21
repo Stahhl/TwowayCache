@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using App.Cache;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Distributed;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,10 +13,19 @@ namespace App.Controllers
     [ApiController]
     public class CacheController : ControllerBase
     {
+        public CacheController(IDistributedCache cache)
+        {
+            _cache = cache;
+        }
+
+        public IDistributedCache _cache { get; set; }
+
         [HttpGet]
         public async Task<JsonResult> Get(string type, string key)
         {
-            return new JsonResult("");
+            var result = await _cache.AddAndOrGetKeyAsync(type.ToUpper(), key);
+
+            return new JsonResult(result);
         }
     }
 }
