@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Cache
 {
-    public static class TwowayRedis
+    public static class Cache
     {
         public static async Task<string> AddAndOrGetKeyAsync(this IDistributedCache cache, KeyType type, string inputKey)
         {
