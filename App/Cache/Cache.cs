@@ -2,7 +2,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace Cache
+namespace App.Cache
 {
     public static class Cache
     {
@@ -29,32 +29,5 @@ namespace Cache
 
             await cache.SetStringAsync(key, value, options);
         }
-    }
-    internal static class StringHelper
-    {
-        internal static string AddPrefix(KeyType type, string key)
-        {
-            return GetPrefix(type) + key;
-        }
-        internal static string GetPrefix(KeyType type)
-        {
-            return type == KeyType.A ? "a_" : "b_";
-        }
-    }
-    internal static class DataAccess
-    {
-        internal static string GetValueForKeyA(string key)
-        {
-            return StringHelper.GetPrefix(KeyType.B) + key;
-        }
-        internal static string GetValueForKeyB(string key)
-        {
-            return StringHelper.GetPrefix(KeyType.A) + key;
-        }
-    }
-    public enum KeyType
-    {
-        A,
-        B
     }
 }
